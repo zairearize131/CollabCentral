@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Knowledge Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <div class="logo">Knowledge Platform</div>
+    <nav class="nav-links">
+      <a href="#feed">Feed</a>
+      <a href="#library">Knowledge Library</a>
+      <a href="#treasure-chest">Treasure Chest</a>
+      <a href="#settings">Settings</a>
+    </nav>
+  </header>
+
+  <main class="main-container">
+    <!-- Sidebar / User Profile Overview -->
+    <aside class="sidebar">
+      <div class="profile-card">
+        <div class="avatar" id="user-avatar">👤</div>
+        <h3 id="user-name">User Profile</h3>
+        <div class="stats">
+          <p><strong>Followers:</strong> <span id="follower-count">0</span></p>
+          <p><strong>Following:</strong> <span id="following-count">0</span></p>
+          <p><strong>Posts:</strong> <span id="post-count">0</span></p>
+        </div>
+      </div>
+
+      <!-- Customization Panel -->
+      <section class="theme-settings">
+        <h4>Appearance Settings</h4>
+        <label for="bg-color">Background Color:</label>
+        <input type="color" id="bg-color" value="#d4af37">
+
+        <label for="text-color">Text Color:</label>
+        <input type="color" id="text-color" value="#008080">
+
+        <button id="apply-theme-btn">Save Theme</button>
+      </section>
+    </aside>
+
+    <!-- Main Content Feed & Interactive Area -->
+    <section class="content-area">
+      <!-- Post Creation Section -->
+      <div class="card create-post">
+        <h3>Create a Post</h3>
+        <textarea id="post-input" placeholder="Share thoughts, notes, or research..."></textarea>
+        
+        <div class="post-actions">
+          <button id="open-camera-btn">📷 Use Camera</button>
+          <button id="submit-post-btn">Publish Post</button>
+        </div>
+
+        <!-- Camera Preview Container -->
+        <div id="camera-container" class="hidden">
+          <video id="webcam" autoplay playsinline></video>
+          <button id="capture-btn">Take Snapshot</button>
+          <canvas id="snapshot-canvas" class="hidden"></canvas>
+        </div>
+      </div>
+
+      <!-- Feed Container -->
+      <div class="feed-container" id="feed-container">
+        <h3>Community Feed</h3>
+        <div id="posts-list">
+          <!-- Posts will be dynamically inserted here -->
+        </div>
+      </div>
+
+      <!-- Knowledge Library Search Prototype -->
+      <div class="card knowledge-search" id="library">
+        <h3>Knowledge Archive</h3>
+        <input type="text" id="search-bar" placeholder="Search topics, history, wellness guides...">
+        <div id="search-results" class="results-box">
+          <p class="placeholder-text">Enter a keyword to explore subjects.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

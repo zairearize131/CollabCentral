@@ -1,0 +1,126 @@
+document.addEventListener('DOMContentLoaded', () => {
+  // UI Element References
+  const bgColorInput = document.getElementById('bg-color');
+  const textColorInput = document.getElementById('text-color');
+  const applyThemeBtn = document.getElementById('apply-theme-btn');
+  
+  const postInput = document.getElementById('post-input');
+  const submitPostBtn = document.getElementById('submit-post-btn');
+  const postsList = document.getElementById('posts-list');
+  const postCountEl = document.getElementById('post-count');
+  
+  const openCameraBtn = document.getElementById('open-camera-btn');
+  const cameraContainer = document.getElementById('camera-container');
+  const webcam = document.getElementById('webcam');
+  const captureBtn = document.getElementById('capture-btn');
+  const snapshotCanvas = document.getElementById('snapshot-canvas');
+
+  let postCount = 0;
+  let mediaStream = null;
+
+  // 1. Theme Customization Logic
+  applyThemeBtn.addEventListener('click', () => {
+    const selectedBg = bgColorInput.value;
+    const selectedText = textColorInput.value;
+
+    document.body.style.backgroundColor = selectedBg;
+    document.body.style.color = selectedText;
+
+    // Save preferences locally
+    localStorage.setItem('user_bg_color', selectedBg);
+    localStorage.setItem('user_text_color', selectedText);
+  });
+
+  // Load Saved Preferences on Startup
+  const savedBg = localStorage.getItem('user_bg_color');
+  const savedText = localStorage.getItem('user_text_color');
+
+  if (savedBg) {
+    document.body.style.backgroundColor = savedBg;
+    bgColorInput.value = savedBg;
+  }
+  if (savedText) {
+    document.body.style.color = savedText;
+    textColorInput.value = savedText;
+  }
+
+  // 2. Post Creation (Simulated CRUD)
+  submitPostBtn.addEventListener('click', () => {
+    const textContent = postInput.value.trim();
+    if (!textContent) return;
+
+    createPostElement(textContent);
+    postInput.value = '';
+    
+    postCount++;
+    postCountEl.textContent = postCount;
+  });
+
+  function createPostElement(content) {
+    const postDiv = document.createElement('div');
+    postDiv.className = 'post-item';
+
+    const timestamp = new Date().toLocaleTimeString();
+    postDiv.innerHTML = `
+      <small>Posted at ${timestamp}</small>
+      <p>${escapeHTML(content)}</p>
+    `;
+
+    postsList.prepend(postDiv);
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+  }
+
+  // 3. Camera Access Implementation
+  openCameraBtn.addEventListener('click', async () => {
+    if (cameraContainer.classList.contains('hidden')) {
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        webcam.srcObject = mediaStream;
+        cameraContainer.classList.remove('hidden');
+        openCameraBtn.textContent = '❌ Close Camera';
+      } catch (err) {
+        alert('Unable to access camera: ' + err.message);
+      }
+    } else {
+      stopCamera();
+    }
+  });
+
+  function stopCamera() {
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(track => track.stop());
+    }
+    cameraContainer.classList.add('hidden');
+    openCameraBtn.textContent = '📷 Use Camera';
+  }
+
+  captureBtn.addEventListener('click', () => {
+    if (!mediaStream) return;
+
+    const context = snapshotCanvas.getContext('2d');
+    snapshotCanvas.width = webcam.videoWidth;
+    snapshotCanvas.height = webcam.videoHeight;
+    context.drawImage(webcam, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
+
+    const imageDataUrl = snapshotCanvas.toDataURL('image/png');
+    
+    // Attach image snapshot to a new post
+    const postDiv = document.createElement('div');
+    postDiv.className = 'post-item';
+    postDiv.innerHTML = `
+      <small>Photo Post - ${new Date().toLocaleTimeString()}</small>
+      <br>
+      <img src="${imageDataUrl}" alt="Snapshot" style="max-width: 100%; border-radius: 4px; margin-top: 0.5rem;">
+    `;
+    postsList.prepend(postDiv);
+
+    postCount++;
+    postCountEl.textContent = postCount;
+    stopCamera();
+  });
+});
