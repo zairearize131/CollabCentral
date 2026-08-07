@@ -1,0 +1,179 @@
+/* Base Layout & Orange Background Requirement */
+:root {
+  --bg-color: #ff8c00;          /* Orange background */
+  --card-bg: #ffffff;
+  --text-color: #222222;
+  --input-bg: #ffffa0;         /* Yellow text bubbles for inputs */
+  --button-bg: #333333;
+  --button-text: #ffffff;
+}
+
+/* Theme Switching Overrides */
+body.theme-dark {
+  --bg-color: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --text-color: #ffffff;
+  --input-bg: #444400;
+  --button-bg: #ff8c00;
+  --button-text: #000000;
+}
+
+body.theme-light {
+  --bg-color: #f4f4f9;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --input-bg: #fff8dc;
+  --button-bg: #007bff;
+  --button-text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 15px 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.security-badge {
+  background-color: #e6fffa;
+  color: #234e52;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border: 1px solid #b2f5ea;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+/* Yellow Input Bubbles Styling */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.yellow-input {
+  background-color: var(--input-bg);
+  border: 2px solid #e6e600;
+  border-radius: 20px; /* Bubble appearance */
+  padding: 12px 18px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.yellow-input:focus {
+  border-color: #b3b300;
+  box-shadow: 0 0 5px rgba(230, 230, 0, 0.8);
+}
+
+/* Buttons */
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 12px;
+}
+
+/* Profile Feed Grid */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stats-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+.stat-box {
+  background: rgba(0,0,0,0.05);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-box strong {
+  font-size: 1.4rem;
+  margin-top: 5px;
+}
+
+.hidden {
+  display: none;
+}
