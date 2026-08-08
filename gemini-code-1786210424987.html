@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="A unified Progressive Web App for Music, Gaming, and Streaming.">
+    <title>StreamVerse | Create, Collaborate, Publish</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <span class="brand-logo">⚡ StreamVerse</span>
+        </div>
+        <div class="nav-center">
+            <div class="search-wrapper">
+                <input type="text" placeholder="Search posts, streams, games, or profiles..." id="searchInput">
+                <button class="search-btn" aria-label="Search">🔍</button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="pwaInstallBtn" class="btn btn-accent" hidden>📥 Install App</button>
+            <button class="icon-btn" id="notifBtn" aria-label="Notifications">🔔<span class="badge">3</span></button>
+            <div class="profile-avatar" id="profileBtn" title="Account Settings & Saved Info">
+                <img src="https://picsum.photos/40?random=99" alt="User Avatar">
+            </div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- Global Navigation Sidebar (Desktop view) -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-item active" data-target="feed">
+                    <span class="nav-icon">🏠</span> <span class="nav-text">Home Feed</span>
+                </button>
+                <button class="nav-item" data-target="gaming">
+                    <span class="nav-icon">🎮</span> <span class="nav-text">Gaming Hub</span>
+                </button>
+                <button class="nav-item" data-target="music">
+                    <span class="nav-icon">🎵</span> <span class="nav-text">Music & Audio</span>
+                </button>
+                <button class="nav-item" data-target="messages">
+                    <span class="nav-icon">💬</span> <span class="nav-text">Direct Messages</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <section class="feed-header">
+                <h2>Live Feed & Collaboration</h2>
+            </section>
+
+            <!-- Sample Post / Content Card -->
+            <article class="content-card">
+                <header class="card-header">
+                    <img src="https://picsum.photos/40?random=1" alt="Author Avatar" class="author-avatar">
+                    <div class="author-info">
+                        <h3>Alex Vance <span class="badge-tag">STREAMER</span></h3>
+                        <p class="post-time">20 mins ago • Live Stream Highlights</p>
+                    </div>
+                </header>
+                <div class="card-body">
+                    <p>Just wrapped up our synthwave track session live on stream! Check out the clip below and drop your stem recommendations in the comments. 🎧✨</p>
+                    <div class="media-container">
+                        <img src="https://picsum.photos/800/450?random=10" alt="Stream Preview" class="card-media">
+                        <span class="live-pill">LIVE PLAYBACK</span>
+                    </div>
+                </div>
+                <!-- Card Interaction Controls -->
+                <footer class="card-controls">
+                    <div class="control-group-left">
+                        <button class="action-btn like-btn">❤️ <span class="like-count">124</span></button>
+                        <button class="action-btn comment-btn">💬 <span>38 Comments</span></button>
+                    </div>
+                    <div class="control-group-right">
+                        <button class="action-btn save-btn" title="Bookmark / Save">🔖</button>
+                        <button class="action-btn share-btn" title="Share Post">📤</button>
+                    </div>
+                </footer>
+            </article>
+        </main>
+    </div>
+
+    <!-- Central Create/Upload Floating Action Button (FAB) -->
+    <button class="fab-create" id="fabCreate" aria-label="Create Post or Start Stream">
+        <span>+</span>
+    </button>
+
+    <!-- Sticky Bottom Media Player Control Dock -->
+    <div class="media-player-dock" id="playerDock">
+        <div class="track-info">
+            <img src="https://picsum.photos/50?random=42" alt="Track Thumbnail" class="dock-thumb">
+            <div class="track-details">
+                <span class="track-title">Cyberpunk Odyssey (Live Mix)</span>
+                <span class="track-artist">DJ Nova ft. PixelByte</span>
+            </div>
+        </div>
+        <div class="dock-controls">
+            <button class="player-btn">⏮️</button>
+            <button class="player-btn play-pause-btn" id="playPauseBtn">▶️</button>
+            <button class="player-btn">⏭️</button>
+        </div>
+        <div class="dock-settings">
+            <select class="quality-select" title="Stream Quality">
+                <option value="1080p">1080p</option>
+                <option value="720p">720p</option>
+                <option value="audio">Audio Only</option>
+            </select>
+            <input type="range" min="0" max="100" value="80" class="volume-slider" title="Volume">
+            <button class="player-btn mini-player-btn" title="Toggle Picture-in-Picture">🖼️</button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item active" data-target="feed">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">Home</span>
+        </button>
+        <button class="bottom-nav-item" data-target="gaming">
+            <span class="nav-icon">🎮</span>
+            <span class="nav-text">Gaming</span>
+        </button>
+        <div class="fab-spacer"></div> <!-- Spacer for Central Floating Action Button -->
+        <button class="bottom-nav-item" data-target="music">
+            <span class="nav-icon">🎵</span>
+            <span class="nav-text">Music</span>
+        </button>
+        <button class="bottom-nav-item" data-target="messages">
+            <span class="nav-icon">💬</span>
+            <span class="nav-text">Messages</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
